@@ -520,8 +520,11 @@
     if (btnUseRecommended) btnUseRecommended.addEventListener("click", () => {
       if (window.__recommendedMarches) {
         document.getElementById("numFormations").value = window.__recommendedMarches;
-        onOptimize();
-        updateRecommendedDisplay();
+        Promise.resolve().then(() => {
+              onOptimize();
+              updateRecommendedDisplay();
+            });
+
       }
     });
   }
@@ -548,5 +551,6 @@
 
   // Expose
   window.OptionA = { init, computeAll };
+
 
 })();
