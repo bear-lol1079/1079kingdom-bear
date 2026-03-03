@@ -927,9 +927,17 @@ Stock used: ${used} / ${before}.`;
       if(window.__recommendedMarches){
         $("numFormations").value = window.__recommendedMarches;
         const mode = $("hiddenLastMode")?.value || "magic12";
-        compute(mode);
+        
+        
+      // Wait one microtask so DOM value is committed FIRST
+          Promise.resolve().then(() => {
+            compute(mode);
+            updateRecommendedDisplay();
+    });
+
       }
     });
+    
 
     $("compInput")?.addEventListener("input", () => {
       const p = parseTriplet($("compInput").value);
